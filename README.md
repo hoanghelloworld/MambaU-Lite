@@ -4,7 +4,7 @@ This repository includes the implementation of skin lesion segmentation on the *
 
 ## Contributions
 - Introducing a lightweight hybrid segmentation model that combines the strengths of both Mamba and CNN architectures, effectively leveraging their advantages to enhance performance while keeping computational costs reasonable.
-- A novel sub-structure called P-Mamba was established and implemented to learn features of different levels efficiently.
+- Building a novel sub-structure called P-Mamba was established and implemented to efficiently learn features of different levels.
   
 ## Citation
 If you find this reference implementation useful in your research, please consider citing:
