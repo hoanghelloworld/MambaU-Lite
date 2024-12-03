@@ -1,6 +1,6 @@
 # MambaU-Lite: A Lightweight Model based on Mamba and Integrated Channel-Spatial Attention for Skin Lesion Segmentation
 ## Introduction
-This repository includes the implementation of skin lesion segmentation on the **ISIC-2018** and **PH2** datasets, as introduced in the paper: **"MambaU-Lite: A Lightweight Model based on Mamba and Integrated Channel-Spatial Attention for Skin Lesion Segmentation"**https://arxiv.org/pdf/2412.01405.
+This repository includes the implementation of skin lesion segmentation on the **ISIC-2018** and **PH2** datasets, as introduced in the paper: **"MambaU-Lite: A Lightweight Model based on Mamba and Integrated Channel-Spatial Attention for Skin Lesion Segmentation"** https://arxiv.org/pdf/2412.01405.
 
 ## Contributions
 - Introducing a lightweight hybrid segmentation model that combines the strengths of both Mamba and CNN architectures, effectively leveraging their advantages to enhance performance while keeping computational costs reasonable.
