@@ -6,10 +6,26 @@ from einops import repeat, reduce, rearrange
 from functools import partial
 from typing import Optional, Callable
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
+
+# Improved import error handling for mamba_ssm
 try:
     from mamba_ssm.ops.selective_scan_interface import selective_scan_fn, selective_scan_ref
-except:
-    pass
+    HAS_MAMBA = True
+except ImportError:
+    print("Warning: mamba_ssm package not found. Using fallback implementation.")
+    HAS_MAMBA = False
+    
+    # Define fallback implementation
+    def selective_scan_ref(u, delta, A, B, C, D=None, z=None, delta_bias=None, delta_softplus=False, return_last_state=False):
+        # This is a simplified implementation that just passes through the input
+        # Real applications should install mamba_ssm
+        print("Using fallback selective_scan implementation - results will be incorrect")
+        batch_size = u.shape[0]
+        L = u.shape[2]
+        return u.reshape(batch_size, -1, 4, u.shape[2] // 4)
+    
+    # Alias for compatibility
+    selective_scan_fn = selective_scan_ref
 
 class SS2D(nn.Module):
     def __init__(
@@ -140,6 +156,11 @@ class SS2D(nn.Module):
         return D
 
     def forward_corev0(self, x: torch.Tensor):
+        # Use the imported or fallback selective_scan function
+        if not HAS_MAMBA:
+            print("Warning: Using fallback selective_scan implementation. Install mamba_ssm for proper functionality.")
+            
+        # Use the global selective_scan_fn that's defined either from the import or our fallback
         self.selective_scan = selective_scan_fn
 
         B, C, H, W = x.shape
