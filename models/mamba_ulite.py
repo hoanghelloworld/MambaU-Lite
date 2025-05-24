@@ -206,6 +206,12 @@ class ULite(nn.Module):
 
     def forward(self, x):
         """Encoder"""
+        # Convert input from NHWC (B,H,W,C) to NCHW (B,C,H,W) format for convolution operations
+        if x.shape[1] == x.shape[3]:  # This is a simple check to detect if conversion is needed
+            pass  # Keep as is if already in NCHW format (channels in dim 1)
+        elif x.shape[3] == 3 or x.shape[3] == 1:  # If channels are in last dimension (NHWC)
+            x = x.permute(0, 3, 1, 2)  # Convert NHWC to NCHW
+            
         H, W = x.size()[2:]
         x = self.pw_in(x)
         x = self.sk_in(x)
